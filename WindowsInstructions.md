@@ -36,42 +36,8 @@ To avoid having to setup Visual Studio to compile your MEX functions for each ne
         6. libmx.lib (Optional)
 9. Save these changes.  Your properties sheet can now be added to any new project via the Property Manager (Add Existing Property Sheet).
 
+## CR3BP Mexing with Event Finding
 
-## Test Property Sheet Setup
-1. Open a new source file in the current project.
-2. Create a new MexFunction, something similar to below:
-```
-    #include "mex.hpp"
-    #include "mexAdapter.hpp"
-
-    using matlab::mex::ArgumentList;
-    using namespace matlab::data;
-
-    class MexFunction : public matlab::mex::Function
-    {
-        void operator()(ArgumentList outputs, ArgumentList inputs)
-        {
-            ArrayFactory af;
-            CharArray hello_arr = af.createCharArray("Hello Matlab!");
-            outputs[0] = hello_arr;
-        }
-    };
-```
-3. Right click on your current project in the Solution Explorer and open the Properties tab.  Under Configuration Properties > General, change the configuration type to .dll (or .lib).  This prevents VS from trying to make an executable program when there is no defined `main` function.  
-![dll_setup](/TutorialFigures/DllSetup.PNG)
-4. Make sure that you have applied your property sheet to this project!  When you have done so, ensure you are set your build configuration to "Release."  Then press `CTRL+Alt+F7` to build your solution. 
-![release_mode](/TutorialFigures/ReleaseMode.PNG?raw=true)
-5. If build is successful, you should should see in your project root directory a new folder (x64), with a subdirectory called "Release." In this directory, you will find your compiled MEX function.  
-6. Navigate to this directory and call this function from MATLAB to ensure that the build was successful.
-
-## CR3BP Mexing
-An example source file for propagating the CR3BP equations of motion is included in the CR3BP_Example folder.  This file is self contained and can serve as an example for how to carry out integration using BOOST and MEX.  To build the file in Visual Studio, see "Setting Up a Property Sheet" in the previous section.  If you are mexing by invoking the `mex` command in MATLAB itself, you will need to specify the location of your BOOST header files.  This will look something like
-
-```
-    mex CR3BP_Example.cpp '-IBOOST_ROOT' % Template
-    mex CR3BP_Example.cpp '-IC:/Program Files/boost_1_81_0' % Example
-```
-For more information on the code itself, see the comments within the source file.
 
 # Pitfalls
 ## BOOST vs. MATLAB Error Tolerancing
