@@ -9,9 +9,12 @@ Framework for fast integration in MATALB, geared towards astrodynamics applicati
 1. Create a new project in Visual Studio.
 2. Add property sheet to the project (see Installation Instructions) specifying file extension (.mexw64), include directories, and library files
 3. Set build to release and configure Visual Studio to build to .dll.  This can be done by navigating to the Solution Explorer, right clicking on your project name and then selecting properties.  An example of how to do this is in the WindowsInstructions.md file.
-4. Right click on the Source Files folder in the Solution Explorer and add a new source (.cpp) file.  Copy the contents of src/example-mex-script.cpp into this file as a template for your own setup.
-5. Right click on the Header Files folder in the Solution Explorer and add a new header (.h) file.  You can use the code in src/include/ExampleEvent.h as a template for defining your own event functions.
-6. 
+4. Right click on the Source Files folder in the Solution Explorer and add a new source (.cpp) file.  Call it mexMain.cpp.  Copy the contents of src/example-mex-script.cpp into this file as a template for your own mex setup.
+5. Right click on the Header Files folder in the Solution Explorer and add a new header (.h) file.  Call it myEvent.h. You can use the code in src/include/ExampleEvent.h as a template for defining your own events.
+6. On line 19 of mexMain.cpp, change the filename to myEvent.h. On line 84, change the type to be the type of your specific event (if using the code in ExampleEvent.h, this is XZCross).
+7. Build the solution in release mode.
+8. Your mex file is now in the specified output folder for your build.  By default, this is somethign like x64/Release.
+9. Move the .mexw64 file to your working folder, or add it to your MATLAB path.
 
 # Pitfalls
 ## BOOST vs. MATLAB Error Tolerancing
