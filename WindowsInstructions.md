@@ -36,22 +36,29 @@ To avoid having to setup Visual Studio to compile your MEX functions for each ne
         6. libmx.lib (Optional)
 9. Save these changes.  Your properties sheet can now be added to any new project via the Property Manager (Add Existing Property Sheet).
 
-## CR3BP Mexing with Event Finding
+## Test Property Sheet Setup
+1. Open a new source file in the current project.
+2. Create a new MexFunction, something similar to below:
+```
+    #include "mex.hpp"
+    #include "mexAdapter.hpp"
 
+    using matlab::mex::ArgumentList;
+    using namespace matlab::data;
 
-# Pitfalls
-## BOOST vs. MATLAB Error Tolerancing
-Boost and matlab employ different tolerancing strategies in their integrators.  Specifically, BOOST keeps an integration step if 
-$$e_i \leq \varepsilon_{abs}+\varepsilon_{rel}(a_1|\bar{x}|+a_2|\frac{d\bar{x}}{dt}|dt)$$
-whereas MATLAB integrators keep an integration step if
-$$e_i \leq \max(\varepsilon_{abs}, \varepsilon_{rel}|\bar{x}|)$$
-
-This can lead to MATLAB taking many more integration steps, especially if variational equations are propagated.  It is possible to set the values of $a_1$ and $a_2$ in BOOST, but by default they are set to 1.  Documentation for BOOST can be found [here](https://www.boost.org/doc/libs/1_81_0/libs/numeric/odeint/doc/html/boost_numeric_odeint/tutorial/harmonic_oscillator.html) (where tolerances are discussed in the section on "Integration with Adaptive Step") and documentation for MATLAB [here](https://www.mathworks.com/help/simulink/ug/variable-step-solvers-in-simulink-1.html).
-## Using Debug configuration
-If you build your solution using objects compiled with the Debug specification, mexing may not work correctly.  Recompile your code using a Release configuration.
-
-## VS Compiler Warnings
-Often, the Visual Studio compiler will give warnings when compiling your mex code.  Do not be alarmed, some parts of the mexApiAdapterImpl.hpp necessary for mexing do things that the Visual Studio compiler does not like.  One common warning is `C26478 Don't use std::move on constant variables`.
-
-## Build to .dll vs .lib
-Note that a .lib build does not work for mexing.  A .dll build is required as specified in Visual Studio.
+    class MexFunction : public matlab::mex::Function
+    {
+        void operator()(ArgumentList outputs, ArgumentList inputs)
+        {
+            ArrayFactory af;
+            CharArray hello_arr = af.createCharArray("Hello Matlab!");
+            outputs[0] = hello_arr;
+        }
+    };
+```
+3. Right click on your current project in the Solution Explorer and open the Properties tab.  Under Configuration Properties > General, change the configuration type to .dll (or .lib).  This prevents VS from trying to make an executable program when there is no defined `main` function.  
+![dll_setup](/TutorialFigures/DllSetup.PNG)
+4. Make sure that you have applied your property sheet to this project!  When you have done so, ensure you are set your build configuration to "Release."  Then press `CTRL+Alt+F7` to build your solution. 
+![release_mode](/TutorialFigures/ReleaseMode.PNG?raw=true)
+5. If build is successful, you should should see in your project root directory a new folder (x64), with a subdirectory called "Release." In this directory, you will find your compiled MEX function.  
+6. Navigate to this directory and call this function from MATLAB to ensure that the build was successful.
