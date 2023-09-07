@@ -4,25 +4,7 @@
 2. After the download is complete, begin installation.  Select the "Desktop Development" toolset.
 3. Download the boost library [here](https://www.boost.org/users/history/version_1_81_0.html).  Unzip the file contents into a directory of your choosing. This library contains the integrators we will use later on.
 
-## Tutorial 1: HelloWorld (Test C++ Compilation without Mexing)
-1. Open a New Project in Visual Studio.
-2. Right Click on the Project in the Solution Explorer and add a new source file (.cpp)
-3. Copy the code from HelloWorld.cpp in the associated subfolder of this repo and press F7 to build the solution.
-4. Press F5 to run the code.  You should see "Hello Astrodynamicists!!" printed to the console. 
-
-
-## Tutorial 2: HelloMex (A Simple "Hello World" equivalent with Mexing)
-1. Open MATLAB and type `mex -setup` to set Microsoft Visual C++ 2022(C) as the compiler for mexed C/C++ language compilation.
-2. Open a New Project in Visual Studio.
-4. Create a new source file, or use the HelloMex.cpp file in the HelloMex folder of this repo.
-5. Open MATLAB in the folder where you have saved your source file and type `mex HelloMex` (or whatever you named your source file) in the Command Window.
-
-Once you have compiled your code, you can test it in MATLAB:
-
-```
-    >>[char_arr_1, char_arr_2] = HelloMex(input_char_array)
-```
-## Tutorial 3 (Optional): Building Hello Mex in Visual Studio
+## Building Mex files in Visual Studio
 This tutorial shows how to configure Visual Studio to generate mex functions, without having to invoke the `mex` command in MATLAB. This can be useful if you are plannning to develop more complicated MEX functions and thus have more compilicated builds as a result. Note that most documentation on the internet is geared towards using Visual Studio to mex functions using the C-API, which is incompatible with the C++ API.
 
 ### Setting Up a Property Sheet
