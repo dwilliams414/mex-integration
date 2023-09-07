@@ -1,4 +1,12 @@
-/* Integrate CR3BP Equations of Motion with Apse finding (terminal) */
+/* Mex Function Example 
+	Call in MATLAB as 
+
+	[t, x, te, xe, ie] = <mexFunctionName>(x0, [t0 tf], system_mu, n_cross) or
+	[t, x, te, xe, ie] = <mexFunctionName>(x0, [t0 tf], system_mu, n_cross, absTol, relTol, initialStep)
+
+	The second form must be used if tf < t0, to allow for a negative initial step in time.
+*/
+
 #pragma warning(push)
 #pragma warning(disable : 4996)
 
@@ -8,8 +16,7 @@
 #include <math.h>
 #include "CR3BP.h"
 #include "EventIntegrator.h"
-#include "P2CollisionEvent.h"
-
+#include "ExampleEvent.h" // Specify the specific event class to use
 #pragma warning(pop)
 
 // Define Namespaces for Convenience
@@ -24,7 +31,7 @@ typedef odeint::runge_kutta_fehlberg78<state_type> rk78;
 class MexFunction : public matlab::mex::Function
 {
 public:
-	
+
 	// What is called from Matlab.  Needs ArgumentLists as inputs
 	void operator()(ArgumentList outputs, ArgumentList inputs);
 
@@ -57,7 +64,7 @@ void MexFunction::operator()(ArgumentList outputs, ArgumentList inputs)
 	TypedArray<double> x0_matlab = (TypedArray<double>) inputs[0];
 	TypedArray<double> tspan_matlab = (TypedArray<double>) inputs[1];
 	double mu = inputs[2][0]; // Need second index bc of how matlab ArgumentLists work
-	double Rp2_nd = (double) inputs[3][0];
+	int n_cross = (int)inputs[3][0];
 
 	if (inputs.size() == 7) // Stepping parameters specified
 	{
@@ -74,7 +81,7 @@ void MexFunction::operator()(ArgumentList outputs, ArgumentList inputs)
 	CR3BP system(mu);
 
 	// Create Event
-	P2CollisionEvent ce(mu, Rp2_nd);
+	XZCross ce(n_cross);
 
 	// Create Event Integrator
 	EventIntegrator<rk78> ei(ce, AbsTol, RelTol, InitStep);
