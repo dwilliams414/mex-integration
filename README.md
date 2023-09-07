@@ -1,12 +1,15 @@
 # mex-integration
-Framework for fast integration in MATALB, geared towards astrodynamics applications
+Framework for fast integration in MATALB, geared towards astrodynamics applications.  The src/include folder provides header files that make integration with event finding using MEX easy.  The example .cpp file in src can be used as a framework for building your own mex functions.
 
-## Installation Instructions & Setup With Visual Studio
+## Installation Instructions
 1. Clone the repository, or copy the files in the src/include folder.  These are the header files that make up the library.
 2. Ensure that you have downloaded boost and make note of the BOOST_ROOT directory (typically something like boost_1_81).
 
-## Set-Up in Visual Studio
-Follow the instructions in the README file located 
+## Visual Studio Setup
+Follow the instructions in WindowsInstructions.md to define a property sheet for mexing.  Be sure to add the src/include folder to your include path.
+
+## Example Project - Integrate to an XZ Plane Crossing in the CR3BP
+
 
 
 # Pitfalls
