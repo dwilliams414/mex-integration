@@ -16,9 +16,8 @@ To avoid having to setup Visual Studio to compile your MEX functions for each ne
 2. Click View > Other Windows > Property Manager. You will see your current project shown in the Property Manager window.
 3. Right click on the name of your project and click "Add New Project Property Sheet."  Title your property sheet and save (e.g. MexSetup.props) and save.
 4. Open the Subfolder Release | x64 (or any of the others).  You should see your property sheet name. Double click on your property sheet.
-![Figure](/TutorialFigures/PropertyManagerWindow1.png?raw=true)
 5. Under Common Properties > General, change Target Extension to .mexw64 (or .mexw32 if using a 32 bit system).
-6. Under C/C++ > General, navigate to "Additional Include Directories."  Add MATLAB_ROOT/extern/include and BOOST_ROOT.  BOOST_ROOT is the root directory for where you unzipped your boost download, e.g. C:/Program Files/boost_1_81_0.  This tells Visual Studio where to look for the necessary C++ and C header files for mexing, which are necessary for building your solution and provides helpful syntax highlighting and suggestions.
+6. Under C/C++ > General, navigate to "Additional Include Directories."  Add MATLAB_ROOT/extern/include, BOOST_ROOT and mex-integration/src/include.  BOOST_ROOT is the root directory for where you unzipped your boost download, e.g. C:/Program Files/boost_1_81_0.  This tells Visual Studio where to look for the necessary C++ and C header files for mexing, which are necessary for building your solution and provides helpful syntax highlighting and suggestions.
 ![IncludeSetup](/TutorialFigures/IncludeSetup.PNG?raw=true)
 7. Under Linker > General, select Additional Library Directories and add MATLAB_ROOT/extern/lib/win64/microsoft.  This specifies the location of the binary library files needed for mexing.
 ![LibSetup](/TutorialFigures/LibSetup.PNG?raw=true)
@@ -36,6 +35,7 @@ To avoid having to setup Visual Studio to compile your MEX functions for each ne
 
         6. libmx.lib (Optional)
 9. Save these changes.  Your properties sheet can now be added to any new project via the Property Manager (Add Existing Property Sheet).
+
 
 ## Test Property Sheet Setup
 1. Open a new source file in the current project.
