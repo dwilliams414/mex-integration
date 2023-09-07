@@ -6,3 +6,4 @@ Framework for fast integration in MATALB, geared towards astrodynamics applicati
 2. Ensure that you have downloaded boost and make note of the BOOST_ROOT directory (typically something like boost_1_81).
 
 ## Set-Up in Visual Studio
+Follow the instructions in the README file located 
