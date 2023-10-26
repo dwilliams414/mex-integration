@@ -7,7 +7,7 @@ Framework for fast integration in MATALB, geared towards astrodynamics applicati
 
 ## Example - Integrate to an XZ Plane Crossing in the CR3BP
 1. Create a new project in Visual Studio.
-2. Add property sheet to the project (see Installation Instructions) specifying file extension (.mexw64), include directories, and library files
+2. Add property sheet to the project (see Windows Instructions) specifying file extension (.mexw64), include directories, and library files
 3. Set build to release and configure Visual Studio to build to .dll.  This can be done by navigating to the Solution Explorer, right clicking on your project name and then selecting properties.  An example of how to do this is in the WindowsInstructions.md file.
 4. Right click on the Source Files folder in the Solution Explorer and add a new source (.cpp) file.  Call it mexMain.cpp.  Copy the contents of src/example-mex-script.cpp into this file as a template for your own mex setup.
 5. Right click on the Header Files folder in the Solution Explorer and add a new header (.h) file.  Call it myEvent.h. You can use the code in src/include/ExampleEvent.h as a template for defining your own events.
